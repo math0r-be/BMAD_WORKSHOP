@@ -1,0 +1,25 @@
+template-type: data-infrastructure-specification
+template-version: 1.0
+elicit: true
+title: Data Infrastructure Specification
+
+content: |
+  # Data Infrastructure: {{infrastructure_name}}
+
+  ## Architecture Overview
+  {{architecture_overview}}
+
+  ## Components
+  {{components}}
+
+  ## Scalability Requirements
+  {{scalability}}
+
+  ## Security Considerations
+  {{security}}
+
+  ## Implementation Plan
+  {{implementation_plan}}
+
+processing_instructions: |
+  [[LLM: Create a comprehensive data infrastructure specification.]]

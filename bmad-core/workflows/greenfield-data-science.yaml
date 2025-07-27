@@ -1,0 +1,298 @@
+workflow:
+  id: greenfield-data-science
+  name: Greenfield Data Science Application Development
+  description: >-
+    Agent workflow for building data-driven applications from concept to production.
+    Combines traditional development with data science, ML, and analytics capabilities.
+    Supports both comprehensive data projects and rapid ML prototyping.
+  type: greenfield
+  project_types:
+    - data-platform
+    - ml-application
+    - analytics-dashboard
+    - ai-saas
+    - data-pipeline
+    - ml-api
+    - predictive-system
+
+  sequence:
+    - agent: analyst
+      creates: project-brief.md
+      optional_steps:
+        - data_landscape_research
+        - competitive_ml_analysis
+        - data_source_discovery
+      notes: "Focus on data availability, ML feasibility, and business value. SAVE OUTPUT: Copy final project-brief.md to your project's docs/ folder."
+
+    - agent: pm
+      creates: prd.md
+      requires: project-brief.md
+      notes: "Creates PRD with data-specific requirements, ML success metrics, and data governance needs. SAVE OUTPUT: Copy final prd.md to your project's docs/ folder."
+
+    - agent: ux-expert
+      creates: front-end-spec.md
+      requires: prd.md
+      optional_steps:
+        - dashboard_design_research
+        - data_visualization_patterns
+      condition: project_has_ui_component
+      notes: "Creates UI/UX specification focusing on data visualization, dashboards, and analytics interfaces. SAVE OUTPUT: Copy final front-end-spec.md to your project's docs/ folder."
+
+    - agent: architect
+      creates: data-architecture.md
+      requires:
+        - prd.md
+        - front-end-spec.md (if applicable)
+      optional_steps:
+        - data_infrastructure_research
+        - ml_platform_evaluation
+        - scalability_analysis
+      notes: "Creates comprehensive data architecture including data pipelines, ML infrastructure, storage, and serving layers. SAVE OUTPUT: Copy final data-architecture.md to your project's docs/ folder."
+
+    - agent: datadev
+      creates: data-pipeline-design.md
+      requires: data-architecture.md
+      optional_steps:
+        - data_source_validation
+        - pipeline_performance_modeling
+        - data_quality_framework
+      notes: "Designs detailed data pipelines, ETL/ELT processes, and data quality measures. SAVE OUTPUT: Copy final data-pipeline-design.md to your project's docs/ folder."
+
+    - agent: datadev
+      creates: ml-model-strategy.md
+      requires: 
+        - prd.md
+        - data-architecture.md
+      condition: project_includes_ml
+      optional_steps:
+        - algorithm_evaluation
+        - feature_engineering_strategy
+        - model_performance_benchmarks
+      notes: "Defines ML model approach, evaluation metrics, and deployment strategy. SAVE OUTPUT: Copy final ml-model-strategy.md to your project's docs/ folder."
+
+    - agent: pm
+      updates: prd.md (if needed)
+      requires: 
+        - data-architecture.md
+        - data-pipeline-design.md
+        - ml-model-strategy.md
+      condition: technical_design_suggests_changes
+      notes: "Update PRD based on technical feasibility and data constraints. Re-export complete prd.md to docs/ folder."
+
+    - agent: po
+      validates: all_artifacts
+      uses: data-project-checklist
+      notes: "Validates all documents for data governance, ML ethics, scalability, and completeness. May require updates to any document."
+
+    - agent: various
+      updates: any_flagged_documents
+      condition: po_checklist_issues
+      notes: "If PO finds issues, return to relevant agent to fix and re-export updated documents to docs/ folder."
+
+    - infrastructure_setup_guidance:
+      action: guide_data_infrastructure
+      notes: "Set up cloud infrastructure, data storage, ML platforms, and monitoring before development begins. Reference data-architecture.md for specific requirements."
+
+    - development_order_guidance:
+      action: guide_data_development_sequence
+      notes: |
+        Recommended development sequence for data projects:
+        1. Data infrastructure and pipelines (DATADEV)
+        2. Data validation and quality checks (DATADEV)
+        3. Exploratory data analysis (DATADEV)
+        4. ML model development and training (DATADEV)
+        5. Model serving APIs (DEV + DATADEV collaboration)
+        6. Frontend/dashboard development (DEV)
+        7. Integration and end-to-end testing (DEV + DATADEV)
+
+    - agent: po
+      action: shard_documents
+      creates: sharded_docs
+      requires: all_artifacts_in_project
+      notes: |
+        Shard documents for IDE development:
+        - Shard docs/prd.md into docs/prd/ folder
+        - Shard docs/data-architecture.md into docs/architecture/ folder
+        - Creates specialized data science story templates
+
+    - agent: sm
+      action: create_data_story
+      creates: data-story.md
+      requires: sharded_docs
+      repeats: for_each_data_epic
+      notes: |
+        Data story creation cycle:
+        - SM Agent (New Chat): @sm → *create
+        - Creates data-specific stories with technical context
+        - Includes data requirements, ML metrics, infrastructure needs
+        - Story starts in "Draft" status
+
+    - agent: datadev
+      action: review_data_story
+      updates: data-story.md
+      requires: data-story.md
+      optional: true
+      condition: story_is_data_focused
+      notes: |
+        OPTIONAL: DataDev reviews data/ML stories for technical feasibility
+        - Validate data requirements and ML approach
+        - Suggest technical improvements
+        - Update story status: Draft → Approved
+
+    - agent: datadev
+      action: implement_data_story
+      creates: data_implementation_files
+      requires: data-story.md
+      condition: story_is_data_ml_pipeline
+      notes: |
+        DataDev Agent (New Chat): @datadev
+        - Implements data pipelines, ML models, analytics
+        - Creates data validation and quality checks
+        - Sets up monitoring and alerting
+        - Updates File List with all changes
+        - Marks story as "Review" when complete
+
+    - agent: dev
+      action: implement_app_story
+      creates: app_implementation_files
+      requires: data-story.md
+      condition: story_is_application_focused
+      notes: |
+        Dev Agent (New Chat): @dev
+        - Implements web interfaces, APIs, integrations
+        - Connects to data services and ML models
+        - Creates user-facing features
+        - Updates File List with all changes
+        - Marks story as "Review" when complete
+
+    - agent: qa
+      action: review_implementation
+      updates: implementation_files
+      requires: implementation_files
+      optional: true
+      notes: |
+        OPTIONAL: QA Agent (New Chat): @qa → review-story
+        - Reviews both data and application code
+        - Validates data quality and model performance
+        - Checks integration between data and app layers
+        - Updates story status (Review → Done or stays Review)
+
+    - integration_testing:
+      action: end_to_end_validation
+      requires: 
+        - data_pipelines_complete
+        - ml_models_deployed
+        - application_features_complete
+      notes: |
+        Comprehensive testing phase:
+        - Data pipeline validation (DATADEV)
+        - Model performance validation (DATADEV)
+        - Application integration testing (DEV)
+        - User acceptance testing (DEV + DATADEV)
+
+    - repeat_development_cycle:
+      action: continue_for_all_stories
+      notes: |
+        Repeat story cycle for all epics:
+        - Data infrastructure stories (DATADEV)
+        - ML model stories (DATADEV)
+        - Application stories (DEV)
+        - Integration stories (DEV + DATADEV)
+
+    - agent: po
+      action: data_project_retrospective
+      creates: data-project-retrospective.md
+      condition: project_complete
+      optional: true
+      notes: |
+        OPTIONAL: After project completion
+        - Validate all data and ML requirements met
+        - Document model performance and business impact
+        - Capture lessons learned for future data projects
+
+    - workflow_end:
+      action: data_project_complete
+      notes: |
+        Data science project complete!
+        - Data pipelines operational
+        - ML models in production
+        - Application features deployed
+        - Monitoring and alerting active
+
+  flow_diagram: |
+    ```mermaid
+    graph TD
+        A[Start: Data Science Project] --> B[analyst: project-brief.md]
+        B --> C[pm: prd.md]
+        C --> D{Has UI Component?}
+        D -->|Yes| E[ux-expert: front-end-spec.md]
+        D -->|No| F[architect: data-architecture.md]
+        E --> F
+        F --> G[datadev: data-pipeline-design.md]
+        G --> H{Includes ML?}
+        H -->|Yes| I[datadev: ml-model-strategy.md]
+        H -->|No| J[pm: update prd if needed]
+        I --> J
+        J --> K[po: validate all artifacts]
+        K --> L{PO finds issues?}
+        L -->|Yes| M[Return to relevant agent for fixes]
+        L -->|No| N[Setup: data infrastructure]
+        M --> K
+        
+        N --> O[po: shard documents]
+        O --> P[sm: create data story]
+        P --> Q{Story type?}
+        Q -->|Data/ML| R[datadev: review & implement]
+        Q -->|Application| S[dev: implement]
+        R --> T[qa: review implementation]
+        S --> T
+        T --> U{More stories?}
+        U -->|Yes| P
+        U -->|No| V[Integration testing]
+        V --> W{All tests pass?}
+        W -->|No| X[Fix issues]
+        W -->|Yes| Y[po: project retrospective]
+        X --> V
+        Y --> Z[Data Project Complete]
+
+        B -.-> B1[Optional: data landscape research]
+        F -.-> F1[Optional: infrastructure research]
+        G -.-> G1[Optional: data source validation]
+        I -.-> I1[Optional: algorithm evaluation]
+
+        style Z fill:#90EE90
+        style N fill:#ADD8E6
+        style O fill:#ADD8E6
+        style R fill:#FFB6C1
+        style S fill:#ADD8E6
+        style V fill:#DDA0DD
+        style B fill:#FFE4B5
+        style C fill:#FFE4B5
+        style E fill:#FFE4B5
+        style F fill:#FFE4B5
+        style G fill:#FFB6C1
+        style I fill:#FFB6C1
+        style T fill:#F0E68C
+        style Y fill:#F0E68C
+    ```
+
+  decision_guidance:
+    when_to_use:
+      - Building data-driven applications
+      - ML/AI product development
+      - Analytics platforms and dashboards
+      - Data pipeline and ETL systems
+      - Predictive analytics applications
+      - Real-time data processing systems
+      - Business intelligence solutions
+
+  handoff_prompts:
+    analyst_to_pm: "Data project brief complete with data landscape analysis. Save as docs/project-brief.md, then create data-focused PRD."
+    pm_to_ux: "PRD ready with data visualization requirements. Save as docs/prd.md, then create dashboard/analytics UI specification."
+    ux_to_architect: "UI spec complete. Save as docs/front-end-spec.md, then create comprehensive data architecture."
+    architect_to_datadev: "Data architecture ready. Save as docs/data-architecture.md, then design detailed data pipelines."
+    datadev_pipeline_complete: "Data pipeline design complete. Save as docs/data-pipeline-design.md. Now create ML model strategy if applicable."
+    datadev_ml_complete: "ML strategy complete. Save as docs/ml-model-strategy.md. Review if PRD needs updates based on technical constraints."
+    technical_to_po: "All technical documents ready in docs/ folder. Please validate for data governance and completeness."
+    po_to_infrastructure: "Documents validated. Set up data infrastructure before beginning development."
+    ready_for_development: "Infrastructure ready. Shard documents and begin data story creation cycle."

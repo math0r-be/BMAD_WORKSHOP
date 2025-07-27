@@ -1,0 +1,28 @@
+template-type: data-analysis-report
+template-version: 1.0
+elicit: true
+title: Data Analysis Report
+
+content: |
+  # Data Analysis Report: {{analysis_title}}
+
+  ## Executive Summary
+  {{executive_summary}}
+
+  ## Methodology
+  {{methodology}}
+
+  ## Key Findings
+  {{key_findings}}
+
+  ## Recommendations
+  {{recommendations}}
+
+  ## Data Sources
+  {{data_sources}}
+
+  ## Analysis Details
+  {{analysis_details}}
+
+processing_instructions: |
+  [[LLM: Create a comprehensive data analysis report based on user requirements.]]

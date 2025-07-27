@@ -1,0 +1,25 @@
+template-type: data-dashboard-specification
+template-version: 1.0
+elicit: true
+title: Data Dashboard Specification
+
+content: |
+  # Dashboard Specification: {{dashboard_name}}
+
+  ## Overview
+  {{overview}}
+
+  ## Requirements
+  {{requirements}}
+
+  ## Data Sources
+  {{data_sources}}
+
+  ## Visualizations
+  {{visualizations}}
+
+  ## Technical Specifications
+  {{technical_specs}}
+
+processing_instructions: |
+  [[LLM: Create a detailed dashboard specification based on user requirements.]]

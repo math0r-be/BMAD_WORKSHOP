@@ -1,0 +1,186 @@
+# Production ML Project Template
+
+project_info:
+  name: "[PROJECT_NAME]"
+  version: "1.0.0"
+  created_date: "[DATE]"
+  team: "[TEAM_NAME]"
+  stakeholders: "[STAKEHOLDER_LIST]"
+
+business_requirements:
+  problem_statement: |
+    [Describe the business problem this ML solution addresses]
+  
+  success_metrics:
+    primary_kpi: "[Main business metric to improve]"
+    target_improvement: "[Quantified target, e.g., '15% reduction in churn']"
+    measurement_period: "[Time frame for measuring success]"
+    
+  business_constraints:
+    budget: "[Budget limitations]"
+    timeline: "[Project deadline]"
+    regulatory: "[Compliance requirements - GDPR, HIPAA, etc.]"
+    
+  roi_calculation:
+    expected_benefit: "[Annual $ benefit]"
+    implementation_cost: "[One-time $ cost]"
+    operational_cost: "[Annual $ operational cost]"
+    payback_period: "[Months to break even]"
+
+technical_requirements:
+  performance_requirements:
+    latency: "[Max response time, e.g., '<100ms']"
+    throughput: "[Requests per second]"
+    accuracy: "[Minimum accuracy threshold]"
+    availability: "[Uptime requirement, e.g., '99.9%']"
+    
+  scalability_requirements:
+    concurrent_users: "[Max concurrent users]"
+    data_volume: "[Expected data growth]"
+    geographic_distribution: "[Multi-region requirements]"
+    
+  security_requirements:
+    data_classification: "[Public/Internal/Confidential/Restricted]"
+    access_controls: "[Who can access what]"
+    encryption: "[Data encryption requirements]"
+    audit_logging: "[Audit trail requirements]"
+    
+  integration_requirements:
+    existing_systems: "[Systems to integrate with]"
+    apis: "[Required API integrations]"
+    data_sources: "[Data source systems]"
+    downstream_systems: "[Systems that will consume results]"
+
+data_requirements:
+  data_sources:
+    - name: "[Source 1]"
+      type: "[Database/API/File/Stream]"
+      volume: "[Data volume]"
+      frequency: "[Update frequency]"
+      quality: "[Known quality issues]"
+      
+  data_governance:
+    data_owner: "[Data owner contact]"
+    retention_policy: "[How long to keep data]"
+    privacy_requirements: "[PII handling requirements]"
+    backup_strategy: "[Data backup requirements]"
+    
+  data_quality_standards:
+    completeness: "[Required completeness %]"
+    accuracy: "[Accuracy requirements]"
+    consistency: "[Consistency checks needed]"
+    timeliness: "[Data freshness requirements]"
+
+model_requirements:
+  model_type: "[Classification/Regression/Clustering/etc.]"
+  interpretability: "[High/Medium/Low interpretability needed]"
+  bias_considerations: "[Fairness and bias requirements]"
+  
+  training_requirements:
+    training_data_size: "[Minimum training data size]"
+    retraining_frequency: "[How often to retrain]"
+    validation_strategy: "[Cross-validation approach]"
+    
+  deployment_requirements:
+    deployment_pattern: "[Batch/Real-time/Hybrid]"
+    rollout_strategy: "[Blue-green/Canary/Rolling]"
+    rollback_plan: "[How to rollback if issues]"
+
+operational_requirements:
+  monitoring:
+    model_performance: "[Metrics to monitor]"
+    data_drift: "[Drift detection strategy]"
+    system_health: "[Infrastructure monitoring]"
+    business_impact: "[Business metrics to track]"
+    
+  maintenance:
+    responsible_team: "[Team responsible for maintenance]"
+    maintenance_schedule: "[Regular maintenance tasks]"
+    incident_response: "[Who to contact for issues]"
+    
+  documentation:
+    technical_docs: "[Required technical documentation]"
+    user_guides: "[End-user documentation needed]"
+    api_docs: "[API documentation requirements]"
+    compliance_docs: "[Regulatory documentation]"
+
+risk_assessment:
+  technical_risks:
+    - risk: "[Technical risk description]"
+      probability: "[High/Medium/Low]"
+      impact: "[High/Medium/Low]"
+      mitigation: "[Mitigation strategy]"
+      
+  business_risks:
+    - risk: "[Business risk description]"
+      probability: "[High/Medium/Low]"
+      impact: "[High/Medium/Low]"
+      mitigation: "[Mitigation strategy]"
+      
+  compliance_risks:
+    - risk: "[Compliance risk description]"
+      probability: "[High/Medium/Low]"
+      impact: "[High/Medium/Low]"
+      mitigation: "[Mitigation strategy]"
+
+testing_strategy:
+  unit_testing: "[Unit test requirements]"
+  integration_testing: "[Integration test plan]"
+  performance_testing: "[Load/stress testing plan]"
+  security_testing: "[Security test requirements]"
+  user_acceptance_testing: "[UAT plan and criteria]"
+  
+  model_testing:
+    validation_datasets: "[Holdout/test datasets]"
+    a_b_testing: "[A/B test strategy if applicable]"
+    shadow_testing: "[Shadow mode testing plan]"
+    bias_testing: "[Fairness and bias testing]"
+
+deployment_plan:
+  environments:
+    development: "[Dev environment specs]"
+    staging: "[Staging environment specs]"
+    production: "[Production environment specs]"
+    
+  deployment_steps:
+    - step: "[Deployment step description]"
+      responsible: "[Who executes this step]"
+      validation: "[How to validate success]"
+      rollback: "[Rollback procedure if needed]"
+      
+  go_live_criteria:
+    - criterion: "[Criterion for go-live decision]"
+      measurement: "[How to measure this criterion]"
+      threshold: "[Acceptable threshold]"
+
+success_criteria:
+  technical_success:
+    - metric: "[Technical metric]"
+      target: "[Target value]"
+      measurement: "[How to measure]"
+      
+  business_success:
+    - metric: "[Business metric]"
+      target: "[Target value]"
+      measurement: "[How to measure]"
+      timeline: "[When to measure]"
+
+post_launch:
+  monitoring_dashboard: "[Dashboard for ongoing monitoring]"
+  review_schedule: "[Regular review meetings]"
+  optimization_plan: "[Continuous improvement plan]"
+  sunset_criteria: "[When to retire this solution]"
+
+approvals:
+  technical_lead: "[Name and date]"
+  business_owner: "[Name and date]"
+  security_team: "[Name and date]"
+  compliance_team: "[Name and date]"
+  project_sponsor: "[Name and date]"
+
+# Template Usage Instructions:
+# 1. Replace all [PLACEHOLDER] values with actual project details
+# 2. Remove sections not applicable to your project
+# 3. Add additional sections as needed for your specific requirements
+# 4. Ensure all stakeholders review and approve before implementation
+# 5. Update this document as requirements evolve during the project

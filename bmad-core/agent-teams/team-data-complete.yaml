@@ -1,0 +1,19 @@
+bundle:
+  name: Team Data Complete
+  icon: 🔬
+  description: Complete data-driven development team with infrastructure, development, and data science capabilities.
+agents:
+  - bmad-orchestrator
+  - analyst
+  - pm
+  - sm
+  - architect
+  - po
+  - dev
+  - qa
+  - datadev
+workflows:
+  - greenfield-data-science.yaml
+  - brownfield-data-science.yaml
+  - greenfield-fullstack.yaml
+  - brownfield-fullstack.yaml

@@ -1,0 +1,304 @@
+workflow:
+  id: brownfield-data-science
+  name: Brownfield Data Science Enhancement
+  description: >-
+    Agent workflow for adding data science, ML, and analytics capabilities to existing applications.
+    Handles integration of data pipelines, ML models, and analytics into established codebases.
+  type: brownfield
+  project_types:
+    - existing-app-with-data-needs
+    - legacy-system-modernization
+    - ml-feature-addition
+    - analytics-integration
+    - data-pipeline-retrofit
+    - ai-enhancement
+
+  sequence:
+    - agent: analyst
+      creates: data-enhancement-brief.md
+      optional_steps:
+        - existing_system_analysis
+        - data_opportunity_assessment
+        - integration_complexity_analysis
+      notes: "Analyzes existing system and identifies data science opportunities. SAVE OUTPUT: Copy final data-enhancement-brief.md to your project's docs/ folder."
+
+    - agent: architect
+      creates: current-system-analysis.md
+      requires: data-enhancement-brief.md
+      optional_steps:
+        - codebase_architecture_review
+        - data_flow_mapping
+        - integration_point_identification
+      notes: "Analyzes existing architecture and identifies integration points for data capabilities. SAVE OUTPUT: Copy final current-system-analysis.md to your project's docs/ folder."
+
+    - agent: datadev
+      creates: data-integration-assessment.md
+      requires: current-system-analysis.md
+      optional_steps:
+        - existing_data_audit
+        - data_quality_assessment
+        - infrastructure_gap_analysis
+      notes: "Assesses existing data, identifies gaps, and evaluates integration complexity. SAVE OUTPUT: Copy final data-integration-assessment.md to your project's docs/ folder."
+
+    - agent: pm
+      creates: data-enhancement-prd.md
+      requires: 
+        - data-enhancement-brief.md
+        - current-system-analysis.md
+        - data-integration-assessment.md
+      notes: "Creates PRD focusing on data enhancements with minimal disruption to existing system. SAVE OUTPUT: Copy final data-enhancement-prd.md to your project's docs/ folder."
+
+    - agent: architect
+      creates: data-integration-architecture.md
+      requires: 
+        - current-system-analysis.md
+        - data-enhancement-prd.md
+      optional_steps:
+        - migration_strategy_planning
+        - backward_compatibility_analysis
+        - performance_impact_assessment
+      notes: "Designs data architecture that integrates with existing system. SAVE OUTPUT: Copy final data-integration-architecture.md to your project's docs/ folder."
+
+    - agent: datadev
+      creates: migration-strategy.md
+      requires: data-integration-architecture.md
+      optional_steps:
+        - data_migration_planning
+        - rollback_strategy_design
+        - testing_strategy_development
+      notes: "Creates detailed migration plan for adding data capabilities. SAVE OUTPUT: Copy final migration-strategy.md to your project's docs/ folder."
+
+    - agent: po
+      validates: all_artifacts
+      uses: brownfield-data-checklist
+      notes: "Validates all documents for integration safety, backward compatibility, and minimal disruption. May require updates to any document."
+
+    - agent: various
+      updates: any_flagged_documents
+      condition: po_checklist_issues
+      notes: "If PO finds issues, return to relevant agent to fix and re-export updated documents to docs/ folder."
+
+    - migration_preparation:
+      action: prepare_integration_environment
+      notes: |
+        Preparation phase:
+        - Set up parallel data infrastructure
+        - Create data backup and rollback procedures
+        - Establish monitoring for existing system
+        - Prepare integration testing environment
+
+    - agent: po
+      action: shard_documents
+      creates: sharded_docs
+      requires: all_artifacts_in_project
+      notes: |
+        Shard documents for IDE development:
+        - Shard docs/data-enhancement-prd.md into docs/prd/ folder
+        - Shard docs/data-integration-architecture.md into docs/architecture/ folder
+        - Creates brownfield-specific story templates
+
+    - agent: sm
+      action: create_integration_story
+      creates: integration-story.md
+      requires: sharded_docs
+      repeats: for_each_integration_phase
+      notes: |
+        Integration story creation cycle:
+        - SM Agent (New Chat): @sm → *create
+        - Creates stories for gradual data integration
+        - Prioritizes non-breaking changes first
+        - Includes rollback procedures in each story
+        - Story starts in "Draft" status
+
+    - phase_1_data_infrastructure:
+      agent: datadev
+      action: implement_parallel_infrastructure
+      creates: data_infrastructure_files
+      notes: |
+        DataDev Agent (New Chat): @datadev
+        - Set up data pipelines parallel to existing system
+        - Implement data collection without affecting current flow
+        - Create data validation and quality checks
+        - Establish monitoring and alerting
+
+    - phase_2_data_integration:
+      agent: datadev
+      action: integrate_data_collection
+      creates: integration_files
+      requires: data_infrastructure_complete
+      notes: |
+        DataDev Agent (New Chat): @datadev
+        - Integrate data collection into existing application
+        - Implement gradual data flow migration
+        - Maintain backward compatibility
+        - Monitor system performance impact
+
+    - phase_3_ml_development:
+      agent: datadev
+      action: develop_ml_capabilities
+      creates: ml_model_files
+      requires: data_integration_stable
+      condition: project_includes_ml
+      notes: |
+        DataDev Agent (New Chat): @datadev
+        - Develop ML models using collected data
+        - Create model training and evaluation pipelines
+        - Implement model serving infrastructure
+        - Set up model monitoring and drift detection
+
+    - phase_4_feature_integration:
+      agent: dev
+      action: integrate_data_features
+      creates: feature_integration_files
+      requires: ml_capabilities_ready
+      notes: |
+        Dev Agent (New Chat): @dev
+        - Integrate data insights into existing UI
+        - Add analytics dashboards and reports
+        - Implement ML-powered features
+        - Ensure seamless user experience
+
+    - phase_5_optimization:
+      agent: datadev
+      action: optimize_performance
+      updates: all_data_components
+      requires: feature_integration_complete
+      notes: |
+        DataDev Agent (New Chat): @datadev
+        - Optimize data pipeline performance
+        - Fine-tune ML model performance
+        - Implement caching and optimization strategies
+        - Monitor and adjust resource usage
+
+    - agent: qa
+      action: comprehensive_testing
+      validates: entire_system
+      requires: all_phases_complete
+      notes: |
+        QA Agent (New Chat): @qa
+        - Test existing functionality remains intact
+        - Validate new data features work correctly
+        - Performance testing with data load
+        - Integration testing across all components
+
+    - rollback_validation:
+      action: test_rollback_procedures
+      notes: |
+        Validate rollback capabilities:
+        - Test data rollback procedures
+        - Verify system can operate without new features
+        - Document emergency rollback steps
+        - Train team on rollback procedures
+
+    - agent: po
+      action: brownfield_retrospective
+      creates: integration-retrospective.md
+      condition: integration_complete
+      optional: true
+      notes: |
+        OPTIONAL: After successful integration
+        - Document integration lessons learned
+        - Measure impact on existing system performance
+        - Capture best practices for future brownfield projects
+
+    - workflow_end:
+      action: brownfield_data_complete
+      notes: |
+        Brownfield data integration complete!
+        - Existing system enhanced with data capabilities
+        - ML features integrated seamlessly
+        - Performance maintained or improved
+        - Team trained on new capabilities
+
+  flow_diagram: |
+    ```mermaid
+    graph TD
+        A[Start: Brownfield Data Enhancement] --> B[analyst: data-enhancement-brief.md]
+        B --> C[architect: current-system-analysis.md]
+        C --> D[datadev: data-integration-assessment.md]
+        D --> E[pm: data-enhancement-prd.md]
+        E --> F[architect: data-integration-architecture.md]
+        F --> G[datadev: migration-strategy.md]
+        G --> H[po: validate all artifacts]
+        H --> I{PO finds issues?}
+        I -->|Yes| J[Return to relevant agent for fixes]
+        I -->|No| K[Prepare integration environment]
+        J --> H
+        
+        K --> L[po: shard documents]
+        L --> M[sm: create integration stories]
+        M --> N[Phase 1: datadev - parallel infrastructure]
+        N --> O[Phase 2: datadev - data integration]
+        O --> P{Includes ML?}
+        P -->|Yes| Q[Phase 3: datadev - ML development]
+        P -->|No| R[Phase 4: dev - feature integration]
+        Q --> R
+        R --> S[Phase 5: datadev - optimization]
+        S --> T[qa: comprehensive testing]
+        T --> U{All tests pass?}
+        U -->|No| V[Fix issues & retest]
+        U -->|Yes| W[Validate rollback procedures]
+        V --> T
+        W --> X[po: integration retrospective]
+        X --> Y[Brownfield Integration Complete]
+
+        B -.-> B1[Optional: system analysis]
+        C -.-> C1[Optional: architecture review]
+        D -.-> D1[Optional: data audit]
+        F -.-> F1[Optional: migration planning]
+
+        style Y fill:#90EE90
+        style K fill:#ADD8E6
+        style N fill:#FFB6C1
+        style O fill:#FFB6C1
+        style Q fill:#FFB6C1
+        style R fill:#ADD8E6
+        style S fill:#FFB6C1
+        style T fill:#F0E68C
+        style W fill:#DDA0DD
+        style B fill:#FFE4B5
+        style C fill:#FFE4B5
+        style D fill:#FFB6C1
+        style E fill:#FFE4B5
+        style F fill:#FFE4B5
+        style G fill:#FFB6C1
+        style X fill:#F0E68C
+    ```
+
+  decision_guidance:
+    when_to_use:
+      - Adding data science to existing applications
+      - Modernizing legacy systems with ML
+      - Integrating analytics into established products
+      - Retrofitting data pipelines to existing systems
+      - Enhancing applications with AI capabilities
+      - Gradual migration to data-driven architecture
+
+  integration_strategies:
+    parallel_deployment:
+      description: "Run new data systems alongside existing ones"
+      risk: low
+      complexity: medium
+      recommended_for: "Critical production systems"
+    
+    gradual_migration:
+      description: "Incrementally replace existing components"
+      risk: medium
+      complexity: high
+      recommended_for: "Systems with tight coupling"
+    
+    feature_flagged:
+      description: "Use feature flags to control data feature rollout"
+      risk: low
+      complexity: low
+      recommended_for: "User-facing applications"
+
+  handoff_prompts:
+    analyst_to_architect: "Data enhancement brief complete with opportunity analysis. Save as docs/data-enhancement-brief.md, then analyze current system architecture."
+    architect_to_datadev: "System analysis complete. Save as docs/current-system-analysis.md, then assess data integration complexity."
+    datadev_to_pm: "Integration assessment complete. Save as docs/data-integration-assessment.md, then create enhancement PRD."
+    pm_to_architect: "Enhancement PRD ready. Save as docs/data-enhancement-prd.md, then design integration architecture."
+    architect_to_datadev_migration: "Integration architecture complete. Save as docs/data-integration-architecture.md, then create detailed migration strategy."
+    ready_for_validation: "Migration strategy complete. Save as docs/migration-strategy.md. All documents ready for PO validation."
+    validated_to_preparation: "Documents validated. Prepare integration environment and begin phased implementation."
+    phases_complete: "All integration phases complete. Begin comprehensive testing and rollback validation."

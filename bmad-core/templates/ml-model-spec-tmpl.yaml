@@ -1,0 +1,111 @@
+template-type: ml-model-specification
+template-version: 1.0
+elicit: true
+title: ML Model Specification Document
+
+content: |
+  # ML Model Specification: {{model_name}}
+
+  ## Executive Summary
+  {{executive_summary}}
+
+  ## Problem Definition
+  
+  ### Business Problem
+  {{business_problem}}
+  
+  ### Success Metrics
+  {{success_metrics}}
+  
+  ### Constraints
+  {{constraints}}
+
+  ## Data Requirements
+  
+  ### Training Data
+  - **Source**: {{training_data_source}}
+  - **Volume**: {{training_data_volume}}
+  - **Features**: {{feature_count}} features
+  - **Target Variable**: {{target_variable}}
+  - **Data Quality**: {{data_quality_requirements}}
+
+  ### Feature Engineering
+  {{#each features}}
+  #### {{name}}
+  - **Type**: {{type}}
+  - **Description**: {{description}}
+  - **Transformation**: {{transformation}}
+  - **Importance**: {{importance}}
+  {{/each}}
+
+  ## Model Architecture
+  
+  ### Algorithm Selection
+  **Selected Algorithm**: {{selected_algorithm}}
+  
+  **Rationale**: {{algorithm_rationale}}
+
+  ### Model Configuration
+  - **Model Type**: {{model_type}}
+  - **Hyperparameters**: {{hyperparameters}}
+  - **Training Strategy**: {{training_strategy}}
+  - **Validation Strategy**: {{validation_strategy}}
+
+  ## Performance Requirements
+  
+  ### Accuracy Metrics
+  - **Primary Metric**: {{primary_metric}}
+  - **Target Performance**: {{target_performance}}
+  - **Baseline Performance**: {{baseline_performance}}
+
+  ### Operational Requirements
+  - **Inference Latency**: {{inference_latency}}
+  - **Throughput**: {{throughput_requirements}}
+  - **Availability**: {{availability_requirements}}
+
+  ## Deployment Strategy
+  
+  ### Infrastructure
+  - **Platform**: {{deployment_platform}}
+  - **Scaling Strategy**: {{scaling_strategy}}
+  - **Resource Requirements**: {{resource_requirements}}
+
+  ### Monitoring
+  - **Performance Monitoring**: {{performance_monitoring}}
+  - **Data Drift Detection**: {{drift_detection}}
+  - **Model Decay Monitoring**: {{decay_monitoring}}
+
+  ## Risk Assessment
+  
+  ### Technical Risks
+  {{#each technical_risks}}
+  - **Risk**: {{risk}}
+  - **Impact**: {{impact}}
+  - **Mitigation**: {{mitigation}}
+  {{/each}}
+
+  ### Business Risks
+  {{#each business_risks}}
+  - **Risk**: {{risk}}
+  - **Impact**: {{impact}}
+  - **Mitigation**: {{mitigation}}
+  {{/each}}
+
+processing_instructions: |
+  [[LLM: This template creates a comprehensive ML model specification document.
+  
+  ELICITATION PROCESS:
+  1. Understand the business problem and success criteria
+  2. Define data requirements and feature engineering needs
+  3. Select appropriate algorithms and model architecture
+  4. Establish performance requirements and constraints
+  5. Plan deployment and monitoring strategy
+  6. Assess risks and mitigation strategies
+  
+  INTERACTION STYLE:
+  - Ask focused questions about each section
+  - Provide algorithm recommendations based on problem type
+  - Explain trade-offs between different approaches
+  - Ensure all requirements are realistic and measurable
+  
+  Use the advanced-elicitation task if the user needs help brainstorming or refining any section.]]

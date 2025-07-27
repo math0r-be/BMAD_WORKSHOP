@@ -1,0 +1,245 @@
+template-type: data-pipeline-architecture
+template-version: 1.0
+elicit: true
+title: Data Pipeline Architecture Document
+
+content: |
+  # Data Pipeline Architecture: {{project_name}}
+
+  ## Executive Summary
+  {{executive_summary}}
+
+  ## Business Requirements
+
+  ### Objectives
+  {{business_objectives}}
+
+  ### Success Metrics
+  {{success_metrics}}
+
+  ### Constraints
+  {{constraints}}
+
+  ## Data Sources
+
+  ### Source Systems
+  {{#each data_sources}}
+  #### {{name}}
+  - **Type**: {{type}}
+  - **Format**: {{format}}
+  - **Volume**: {{volume}}
+  - **Frequency**: {{frequency}}
+  - **Schema**: {{schema}}
+  - **Access Method**: {{access_method}}
+  {{/each}}
+
+  ## Architecture Overview
+
+  ### High-Level Architecture
+  ```mermaid
+  graph LR
+      A[Data Sources] --> B[Ingestion Layer]
+      B --> C[Processing Layer]
+      C --> D[Storage Layer]
+      D --> E[Serving Layer]
+      F[Monitoring] --> B
+      F --> C
+      F --> D
+      F --> E
+  ```
+
+  ### Architecture Pattern
+  **Selected Pattern**: {{architecture_pattern}}
+
+  **Rationale**: {{pattern_rationale}}
+
+  ## System Components
+
+  ### Ingestion Layer
+  - **Technology**: {{ingestion_technology}}
+  - **Capacity**: {{ingestion_capacity}}
+  - **Scalability**: {{ingestion_scalability}}
+  - **Error Handling**: {{ingestion_error_handling}}
+
+  ### Processing Layer
+  - **Technology**: {{processing_technology}}
+  - **Processing Type**: {{processing_type}}
+  - **Transformation Logic**: {{transformation_logic}}
+  - **Data Quality**: {{data_quality_measures}}
+
+  ### Storage Layer
+  - **Primary Storage**: {{primary_storage}}
+  - **Backup Strategy**: {{backup_strategy}}
+  - **Retention Policy**: {{retention_policy}}
+  - **Partitioning Strategy**: {{partitioning_strategy}}
+
+  ### Serving Layer
+  - **API Technology**: {{api_technology}}
+  - **Caching Strategy**: {{caching_strategy}}
+  - **Load Balancing**: {{load_balancing}}
+  - **Rate Limiting**: {{rate_limiting}}
+
+  ## Data Flow
+
+  ### Processing Steps
+  {{#each processing_steps}}
+  #### Step {{@index}}: {{name}}
+  - **Input**: {{input}}
+  - **Processing**: {{processing}}
+  - **Output**: {{output}}
+  - **Error Handling**: {{error_handling}}
+  {{/each}}
+
+  ### Data Lineage
+  {{data_lineage_description}}
+
+  ## Infrastructure
+
+  ### Cloud Platform
+  **Platform**: {{cloud_platform}}
+
+  ### Resource Requirements
+  - **Compute**: {{compute_requirements}}
+  - **Storage**: {{storage_requirements}}
+  - **Network**: {{network_requirements}}
+  - **Estimated Cost**: {{estimated_cost}}
+
+  ### Infrastructure as Code
+  - **Tool**: {{iac_tool}}
+  - **Repository**: {{iac_repository}}
+  - **Deployment Strategy**: {{deployment_strategy}}
+
+  ## Security & Compliance
+
+  ### Data Security
+  - **Encryption at Rest**: {{encryption_rest}}
+  - **Encryption in Transit**: {{encryption_transit}}
+  - **Access Controls**: {{access_controls}}
+  - **Audit Logging**: {{audit_logging}}
+
+  ### Compliance Requirements
+  {{#each compliance_requirements}}
+  - **{{name}}**: {{description}}
+  {{/each}}
+
+  ## Monitoring & Observability
+
+  ### Metrics
+  - **Performance Metrics**: {{performance_metrics}}
+  - **Business Metrics**: {{business_metrics}}
+  - **Error Metrics**: {{error_metrics}}
+
+  ### Alerting
+  - **Alert Channels**: {{alert_channels}}
+  - **Escalation Policy**: {{escalation_policy}}
+  - **SLA Targets**: {{sla_targets}}
+
+  ### Logging
+  - **Log Aggregation**: {{log_aggregation}}
+  - **Log Retention**: {{log_retention}}
+  - **Log Analysis**: {{log_analysis}}
+
+  ## Disaster Recovery
+
+  ### Backup Strategy
+  {{backup_strategy_details}}
+
+  ### Recovery Procedures
+  {{recovery_procedures}}
+
+  ### RTO/RPO Targets
+  - **Recovery Time Objective (RTO)**: {{rto}}
+  - **Recovery Point Objective (RPO)**: {{rpo}}
+
+  ## Performance & Scalability
+
+  ### Performance Requirements
+  - **Throughput**: {{throughput_requirements}}
+  - **Latency**: {{latency_requirements}}
+  - **Availability**: {{availability_requirements}}
+
+  ### Scaling Strategy
+  - **Horizontal Scaling**: {{horizontal_scaling}}
+  - **Vertical Scaling**: {{vertical_scaling}}
+  - **Auto-scaling Triggers**: {{autoscaling_triggers}}
+
+  ## Development & Deployment
+
+  ### CI/CD Pipeline
+  - **Source Control**: {{source_control}}
+  - **Build Process**: {{build_process}}
+  - **Testing Strategy**: {{testing_strategy}}
+  - **Deployment Process**: {{deployment_process}}
+
+  ### Environment Strategy
+  - **Development**: {{dev_environment}}
+  - **Staging**: {{staging_environment}}
+  - **Production**: {{prod_environment}}
+
+  ## Risks & Mitigation
+
+  ### Technical Risks
+  {{#each technical_risks}}
+  - **Risk**: {{risk}}
+  - **Impact**: {{impact}}
+  - **Probability**: {{probability}}
+  - **Mitigation**: {{mitigation}}
+  {{/each}}
+
+  ### Operational Risks
+  {{#each operational_risks}}
+  - **Risk**: {{risk}}
+  - **Impact**: {{impact}}
+  - **Probability**: {{probability}}
+  - **Mitigation**: {{mitigation}}
+  {{/each}}
+
+  ## Implementation Timeline
+
+  ### Phases
+  {{#each implementation_phases}}
+  #### Phase {{@index}}: {{name}}
+  - **Duration**: {{duration}}
+  - **Deliverables**: {{deliverables}}
+  - **Dependencies**: {{dependencies}}
+  - **Resources**: {{resources}}
+  {{/each}}
+
+  ## Appendices
+
+  ### A. Technology Evaluation Matrix
+  {{technology_evaluation}}
+
+  ### B. Cost Analysis
+  {{cost_analysis}}
+
+  ### C. Performance Benchmarks
+  {{performance_benchmarks}}
+
+processing_instructions: |
+  [[LLM: This template creates a comprehensive data pipeline architecture document. 
+
+  ELICITATION PROCESS:
+  1. Start by understanding the business context and requirements
+  2. Identify all data sources and their characteristics
+  3. Determine processing requirements and constraints
+  4. Select appropriate architecture pattern and technologies
+  5. Design the complete system with all layers
+  6. Plan for security, monitoring, and operations
+  7. Create implementation timeline and risk assessment
+
+  INTERACTION STYLE:
+  - Ask focused questions about each section
+  - Provide technology recommendations based on requirements
+  - Explain trade-offs between different architectural choices
+  - Ensure all non-functional requirements are addressed
+  - Create realistic timelines and resource estimates
+
+  VALIDATION:
+  - Ensure architecture meets all stated requirements
+  - Verify scalability and performance targets are achievable
+  - Check that security and compliance needs are addressed
+  - Validate that monitoring and operations are comprehensive
+  - Confirm implementation plan is realistic and well-sequenced
+
+  Use the advanced-elicitation task if the user needs help brainstorming or refining any section.]]

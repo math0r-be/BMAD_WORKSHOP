@@ -1,0 +1,17 @@
+bundle:
+  name: Team Data Science
+  icon: 📊
+  description: Specialized team for data science projects with unified DataDev agent covering Data Engineering, Analysis, and Science.
+agents:
+  - bmad-orchestrator
+  - analyst
+  - pm
+  - sm
+  - architect
+  - po
+  - datadev
+workflows:
+  - greenfield-data-science.yaml
+  - brownfield-data-science.yaml
+  - greenfield-fullstack.yaml
+  - brownfield-fullstack.yaml
